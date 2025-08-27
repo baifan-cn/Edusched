@@ -12,12 +12,12 @@
 ## Integrations
 
 - CSV/Excel import/export
-- SIS connectors (pluggable)
+- SIS connectors (pluggable)：先以文件导入为主，逐步引入 API 适配器
 - Webhooks and API access
 
 ## Governance & Security
 
-- OIDC SSO, RBAC
+- OIDC SSO（已选能力）, RBAC
 - Audit logging, multi-tenant isolation
 
 ## Observability & Ops

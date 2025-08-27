@@ -10,6 +10,7 @@ An intelligent, explainable timetabling platform that produces feasible and opti
 - Optimization for fairness, balance, and preferences
 - Fast iteration with diagnostics and explainability
 - Multi-tenant SaaS with on‑prem option
+ - 通用学校类型（含多校区）支持；私有化部署优先
 
 ## Out of scope (Phase 0)
 
@@ -17,9 +18,9 @@ An intelligent, explainable timetabling platform that produces feasible and opti
 - Student information system (SIS) of record
 - Implementation code; this phase is docs and research only
 
-## Open questions
+## Open questions（已部分确认）
 
 - Target school types and sizes?
-- Hosting preference: SaaS vs on‑prem?
-- Preferred UI library (Element Plus vs Naive UI)?
+- Hosting preference: on‑prem（已确认优先）
+- Preferred UI library: Element Plus（已确认）
 - Required SIS standards/integrations?
