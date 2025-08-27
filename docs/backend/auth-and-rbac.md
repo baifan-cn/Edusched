@@ -2,7 +2,7 @@
 
 ## Authentication
 
-- OIDC providers: Keycloak/Auth0/Azure AD
+- OIDC（已选能力）：优先支持企业常用提供方（Keycloak/Auth0/Azure AD）
 - JWT tokens; refresh flow as per provider
 - Optional passwordless for limited roles if needed
 
@@ -13,5 +13,5 @@
 
 ## Session management
 
-- Short-lived tokens; revocation via provider
+- Short-lived tokens; revocation via provider（与 OIDC 配置一致）
 - CSRF protections for browser flows

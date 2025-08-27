@@ -1,12 +1,14 @@
 # Background Tasks
 
-## Job queue
+## 作业队列（已选：RQ）
 
-- Celery or RQ workers for long-running scheduling jobs
-- Redis as broker and pub/sub for progress
+- 使用 RQ 运行长耗时排课作业
+- Redis 作为队列与发布/订阅进度通道
+- 选择理由：依赖简单、易于私有化部署、与 Redis 集成紧密；功能满足排课作业需求
+- 备选（不选 Celery）：功能更全但依赖更重，私有化复杂度更高
 
-## Patterns
+## 模式
 
-- Idempotent job handlers with checkpoints
-- Cancellation and rollback
-- Backoff and retries for transient failures
+- 幂等作业处理与检查点（checkpoint）
+- 支持取消与回滚
+- 瞬时失败的退避与重试策略
