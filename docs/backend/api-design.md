@@ -50,15 +50,56 @@
 - 过滤：RSQL 风格或 `filter[field]=op:value` 简化语法
 - 排序：`sort=field,-field2`
 
+### 示例
+
+```
+GET /v1/teachers?page=1&page_size=50&sort=last_name,-first_name&filter[campus_id]==:uuid&filter[subject]==eq:Math
+
+200 OK
+{
+  "data": [ {"id": "...", "first_name": "...", "last_name": "..."} ],
+  "page": 1,
+  "page_size": 50,
+  "total": 1234
+}
+```
+
 ## 幂等与并发
 
 - `Idempotency-Key` 头部支持创建/启动类操作
 - 乐观锁：`If-Match` + `ETag`（如编辑 `timetable`）
 
+### 错误响应（problem+json）
+
+```
+HTTP/1.1 409 Conflict
+Content-Type: application/problem+json
+
+{
+  "type": "https://edusched.dev/problems/version-conflict",
+  "title": "Version conflict",
+  "status": 409,
+  "detail": "ETag does not match current resource version",
+  "instance": "/v1/timetables/abc-123"
+}
+```
+
 ## 实时与事件
 
 - WebSocket：`/ws/jobs/{job_id}` 推送进度与冲突告警
 - Webhook（可选）：`schedule_published`, `job_completed`
+
+### WebSocket 消息示例
+
+```
+{
+  "event": "progress",
+  "job_id": "job-123",
+  "phase": "optimization",
+  "percent": 42,
+  "metrics": {"best_score": 12345, "improvements": 17}
+}
+```
 
 ## Real-time
 
