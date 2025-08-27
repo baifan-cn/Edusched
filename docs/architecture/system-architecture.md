@@ -20,7 +20,7 @@
 
 ## Diagrams
 
-- Context, container, and component diagrams (to be added)
+- Context, container, and component diagrams (see `architecture/diagrams/` placeholders; images to follow)
 
 ### 部署拓扑（文本框架）
 
@@ -41,3 +41,5 @@
 - API → RQ 队列（提交作业）；Worker 消费作业并写回结果（Postgres）
 - Worker → 通过 Redis Pub/Sub 推送进度；API 将进度透传到 WebSocket 客户端
 - OIDC 提供方（Keycloak/Auth0/Azure AD）→ API 网关的认证与令牌校验
+
+注：上述文字与图保持一致性；后续添加 drawio/png 图源至 `architecture/diagrams/`。

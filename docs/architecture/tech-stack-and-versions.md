@@ -74,3 +74,46 @@
 - 标注“待定”的条目将在落地前根据发行/兼容矩阵最终确认。
 - 强制使用官方文档与发行说明作为依据；禁止基于记忆确定版本。
 - 重要变更需记录迁移脚本/步骤、回滚策略与兼容期。
+
+## 兼容矩阵（初稿，最终以 Context7 研究为准）
+
+- 后端运行时
+  - Python 3.12.x + FastAPI（待定） + Pydantic v2.11.x + Uvicorn 0.35.x
+  - SQLAlchemy 2.0.x + Alembic（待定）
+  - Redis 7.x + RQ 2.5.x
+- 前端工具链
+  - Node.js LTS（待定） + pnpm（待定）
+  - Vue 3.5.x + Vite 7.1.x + TypeScript（待定，strict=true）
+  - ESLint（待定） + Prettier 3.6.x + Vitest（待定） + Playwright 1.55.x
+- 集群与运维
+  - Kubernetes（待定） + Ingress-NGINX（待定） + cert-manager（待定）
+  - ArgoCD（待定）/GitHub Actions（待定）
+
+说明：以上矩阵用于评估兼容性窗口，避免出现不受支持的组合；最终版本需在 Context7 拉取各官方“支持矩阵/Release Notes”后钉住。
+
+## 迁移与破坏性变更注意事项
+
+- Pydantic v1 → v2：`BaseModel` 配置迁移到 `model_config`；`validate_*` 钩子变化；序列化行为差异。
+- SQLAlchemy 1.4/以下 → 2.0：使用 2.0 风格；同步/异步 Session 区分；`select()` 返回与类型提示变化。
+- FastAPI（待定大版本）：依赖注入与 `response_model` 行为在新版本检查严格度差异；Starlette 升级同步。
+- TypeScript（待定大版本）：严格模式下 DOM/Node lib 版本不一致导致类型报错；`moduleResolution` 策略升级。
+- ESLint v9（若采用）：插件生态与扁平化配置变更；需迁移到 `eslint.config.js`。
+- Vitest 2（若采用）：覆盖率提供方变化（V8/istanbul）；`happy-dom`/`jsdom` 差异。
+- Kubernetes（待定）：API 弃用（如 Ingress v1beta1→v1 已完成，继续关注 CRD 变更）。
+
+## 私有化镜像源与离线安装指引（草案）
+
+- 私有镜像仓库
+  - 使用企业 Harbor/Artifactory/ACR；复制上游镜像到私有仓库，启用镜像签名与拉取策略。
+  - 建议镜像命名：`registry.corp/edusched/<component>:<version>`；通过 Helm/Kustomize 覆盖镜像地址。
+- 上游镜像清单（示例）
+  - `python:<minor>-slim`（后端基础镜像）
+  - `node:<minor>-bullseye`（前端构建）
+  - `postgres:<major>`、`redis:<major>`、`nginxinc/nginx-unprivileged`（如需）
+  - `ingress-nginx/controller:<version>`、`jetstack/cert-manager-controller:<version>`、`argoproj/argocd:<version>`
+- 离线安装
+  - 预拉取并保存镜像：`docker pull ... && docker save -o images.tar ...`；在离线环境 `docker load -i images.tar`。
+  - 依赖包离线缓存：后端使用 uv 的 `uv cache`；前端使用 pnpm store + 离线镜像（`pnpm fetch`）。
+  - 证书与仓库认证：预置 CA 证书到节点信任；在 CI/集群侧配置 docker registry secret。
+
+> 注：标注“待定”的版本将在 Context7 研究完成后一次性钉住，并附上对应官方链接与迁移注意事项引用。

@@ -24,6 +24,7 @@ Single source of truth for Edusched requirements, architecture, algorithms, API,
   - Performance benchmarks: `algorithms/performance-benchmarks.md`
 - Architecture
   - System architecture: `architecture/system-architecture.md`
+  - Architecture diagrams (context/container/component): `architecture/diagrams/`
   - Tech stack & versions: `architecture/tech-stack-and-versions.md`
   - Deployment topologies: `architecture/deployment-topologies.md`
   - Multi-tenancy & isolation: `architecture/multi-tenancy-and-isolation.md`
