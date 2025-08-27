@@ -1,0 +1,29 @@
+# Glossary (CN/EN)
+
+- School 学校: The tenant organization using the system.
+- Campus 校区: A physical site under a School.
+- Term 学期: Scheduling period with start/end dates.
+- WeekPattern 周模式: Odd/even or custom weekly pattern.
+- Calendar 校历: Holidays and special days.
+- Grade 年级: Grade level.
+- ClassGroup 班级组: Homeroom/cohort group.
+- StudentGroup 学生组: Arbitrary grouping for scheduling.
+- Subject 学科: Academic subject.
+- CourseOffering 开课: Subject offered in a term.
+- Section 教学班/分组: A teachable group within an offering.
+- Teacher 教师: Instructor entity.
+- TeacherAvailability 教师可用性: Availability slots and exceptions.
+- TeacherContract 教师合同: Workload, max hours, and limits.
+- Room 教室: Physical room.
+- RoomFeature 房间特性: Lab/equipment attributes.
+- Timeslot 时间段: Day + period time unit.
+- PeriodTemplate 节次模板: Daily period definitions.
+- Constraint 约束: Hard/soft scheduling rule.
+- WeightProfile 权重配置: Weights for soft constraints.
+- Timetable 课表: Aggregated schedule for a scope.
+- Assignment 课表条目: Section × Timeslot × Room × Teacher.
+- Lock/Pin 锁定: Fixed assignments not to be moved.
+- SwapSuggestion 交换建议: Proposed swap to resolve conflicts.
+- Job 作业: Scheduling run with lifecycle.
+- Tenant 租户: Logical boundary for data isolation.
+- RBAC 基于角色的访问控制: Role-based permissions model.
