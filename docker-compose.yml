@@ -92,6 +92,11 @@ services:
     volumes:
       - ./frontend/src:/app/src
       - ./frontend/public:/app/public
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   # 调度工作进程
   worker:
