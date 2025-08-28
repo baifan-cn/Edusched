@@ -6,15 +6,28 @@
 - School‑specific `WeightProfile`
 - Pareto fronts for trade‑offs where appropriate
 
+### 统一度量与归一
+
+- 将软约束违规映射为同一量纲（分钟/次数/布尔→0/1），再乘以权重
+- 例如：`Z = w_idle * minutes_idle + w_cons * max(0, consecutive - limit) + ...`
+
 ## Explainability
 
 - Per‑assignment score breakdowns
 - Aggregate fairness metrics by teacher/class
 
+输出建议：对每个 `assignment` 返回 `{soft_penalties: {idle: 4, late_day: 2, ...}}`，并在总分中汇总。
+
 ## Fairness
 
 - Balance workload and time‑of‑day equity
 - Configurable caps and distributions
+
+指标参考：
+
+- 教师课时分布标准差/极差
+- 早/晚课比例差异（教师/班级维度）
+- 空档分布 Gini/方差
 
 ## WeightProfile（示例草案）
 

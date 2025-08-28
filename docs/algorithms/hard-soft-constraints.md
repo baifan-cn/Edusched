@@ -8,6 +8,16 @@
 - Course hour totals met; student group clash‑free
 - Travel time buffers across campuses
 
+### 线性化/CP 表达（示例）
+
+- 教师冲突：`∀k,t: Σ_{s,r} x[s,t,r,k] ≤ 1`
+- 房间冲突：`∀r,t: Σ_{s,k} x[s,t,r,k] ≤ 1`
+- 课时满足：`∀s: Σ_{t,r,k} x[s,t,r,k] = hours[s]`（或按 block 聚合）
+- 房间特性：`x[s,t,r,k] ≤ room_ok[s,r]`
+- 教师资质：`x[s,t,r,k] ≤ teacher_ok[s,k]`
+- 固定节次：对固定 `(s,t)` 约束 `Σ_{r,k} x[s,t,r,k] = 1`，其他 t 为 0
+- 行程缓冲：禁止 `gap(t_prev,t_next) < travel_time(campus_prev,campus_next)+buffer` 的相邻分配（以蕴含/冲突对实现）
+
 ## Soft
 
 - Preferences (teacher, class, room)
@@ -35,3 +45,10 @@
 - 连堂限制：限制连续上课节数与跨午休连堂
 - 空档最小化：降低教师或班级在一天内的空档
 - 房间偏好：优先分配偏好房间或近距离房间
+
+### 软约束度量示例（与评分函数对齐）
+
+- `min_idle_gap`：`g[k,d]` 聚合为分钟数，计入 `c_idle = Σ g[k,d]`
+- `limit_consecutive`：超过阈值的连续节数产生惩罚 `c_cons`
+- `spread_across_week`：与理想分布差异的 L1/L2 误差 `c_spread`
+- `preferred_room`：非偏好房间计次 `c_roompref`
