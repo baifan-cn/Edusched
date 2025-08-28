@@ -15,8 +15,7 @@ services:
       - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
     ports:
       - "5432:5432"
-    networks:
-      - edusched-network
+    network_mode: host
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U edusched -d edusched"]
       interval: 30s
@@ -32,8 +31,7 @@ services:
       - redis_data:/data
     ports:
       - "6379:6379"
-    networks:
-      - edusched-network
+    network_mode: host
     healthcheck:
       test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
       interval: 30s
@@ -47,12 +45,12 @@ services:
       dockerfile: Dockerfile.backend
     container_name: edusched-backend
     environment:
-      - DB_HOST=postgres
+      - DB_HOST=localhost
       - DB_PORT=5432
       - DB_NAME=edusched
       - DB_USER=edusched
       - DB_PASSWORD=edusched123
-      - REDIS_HOST=redis
+      - REDIS_HOST=localhost
       - REDIS_PORT=6379
       - REDIS_PASSWORD=edusched123
       - SECURITY_SECRET_KEY=your-super-secret-key-here-make-it-long-enough
@@ -66,8 +64,7 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
-    networks:
-      - edusched-network
+    network_mode: host
     volumes:
       - ./src:/app/src
       - ./tests:/app/tests
@@ -87,8 +84,7 @@ services:
       - "3000:3000"
     depends_on:
       - backend
-    networks:
-      - edusched-network
+    network_mode: host
     volumes:
       - ./frontend/src:/app/src
       - ./frontend/public:/app/public
@@ -105,12 +101,12 @@ services:
       dockerfile: Dockerfile.worker
     container_name: edusched-worker
     environment:
-      - DB_HOST=postgres
+      - DB_HOST=localhost
       - DB_PORT=5432
       - DB_NAME=edusched
       - DB_USER=edusched
       - DB_PASSWORD=edusched123
-      - REDIS_HOST=redis
+      - REDIS_HOST=localhost
       - REDIS_PORT=6379
       - REDIS_PASSWORD=edusched123
     depends_on:
@@ -118,8 +114,7 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
-    networks:
-      - edusched-network
+    network_mode: host
     volumes:
       - ./src:/app/src
 
@@ -137,15 +132,10 @@ services:
     depends_on:
       - backend
       - frontend
-    networks:
-      - edusched-network
+    network_mode: host
 
 volumes:
   postgres_data:
     driver: local
   redis_data:
     driver: local
-
-networks:
-  edusched-network:
-    driver: bridge
