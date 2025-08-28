@@ -3,7 +3,7 @@
 使用SQLAlchemy 2.0风格定义数据库表结构，支持多租户和审计日志。
 """
 
-from datetime import datetime
+from datetime import datetime, time
 from typing import Any, Dict, List, Optional
 from uuid import UUID
 
@@ -427,7 +427,7 @@ class Timetable(BaseTable):
         SQLEnum(SchedulingStatus), nullable=False, default=SchedulingStatus.DRAFT
     )
     constraints: Mapped[List[UUID]] = mapped_column(JSON, nullable=False, default=list)
-    metadata: Mapped[Dict[str, Any]] = mapped_column(JSON, nullable=False, default=dict)
+    metadata_json: Mapped[Dict[str, Any]] = mapped_column(JSON, nullable=False, default=dict)
     published_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
     published_by: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
     
