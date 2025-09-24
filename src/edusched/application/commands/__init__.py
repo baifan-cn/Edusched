@@ -1,0 +1,1 @@
+"""Command classes for CQRS pattern."""

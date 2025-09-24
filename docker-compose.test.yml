@@ -1,0 +1,109 @@
+# Docker Compose configuration for testing environment
+version: '3.8'
+
+services:
+  # PostgreSQL Test Database
+  postgres-test:
+    image: postgres:16-alpine
+    container_name: edusched-postgres-test
+    environment:
+      POSTGRES_DB: edusched_test
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_test
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_test_data:/var/lib/postgresql/data
+    networks:
+      - edusched-test-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Test Cache
+  redis-test:
+    image: redis:7-alpine
+    container_name: edusched-redis-test
+    command: redis-server --appendonly yes
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_test_data:/data
+    networks:
+      - edusched-test-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+  # Test Runner
+  test-runner:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    container_name: edusched-test-runner
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres_test@postgres-test:5432/edusched_test
+      - REDIS_URL=redis://redis-test:6379
+      - TESTING=true
+      - PYTHONPATH=/app
+    volumes:
+      - .:/app
+      - ./coverage reports:/app/coverage
+    depends_on:
+      postgres-test:
+        condition: service_healthy
+      redis-test:
+        condition: service_healthy
+    networks:
+      - edusched-test-network
+    command: pytest tests/ --cov=edusched --cov-report=xml --cov-report=html --cov-report=term-missing
+
+  # Frontend Test Runner
+  frontend-test-runner:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.test
+    container_name: edusched-frontend-test-runner
+    environment:
+      - NODE_ENV=test
+      - CI=true
+    volumes:
+      - ./frontend:/app
+      - ./frontend/coverage:/app/coverage
+    networks:
+      - edusched-test-network
+    command: npm run test:coverage
+
+  # Integration Test Service
+  integration-test:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    container_name: edusched-integration-test
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres_test@postgres-test:5432/edusched_test
+      - REDIS_URL=redis://redis-test:6379
+      - TESTING=true
+      - INTEGRATION_TEST=true
+    volumes:
+      - .:/app
+    depends_on:
+      postgres-test:
+        condition: service_healthy
+      redis-test:
+        condition: service_healthy
+    networks:
+      - edusched-test-network
+    command: pytest tests/integration/ -v
+
+volumes:
+  postgres_test_data:
+  redis_test_data:
+
+networks:
+  edusched-test-network:
+    driver: bridge

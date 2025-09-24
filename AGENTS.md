@@ -1,41 +1,40 @@
-# MCP 规则
+# Edusched Agent Guidelines
 
-始终使用简体中文回复我的所有提问；
-文档始终使用简体中文来编写(不包括专有名称)
+## Build/Lint/Test Commands
 
-## mcp-feedback-enhanced规则
+### Backend (Python)
+- **Run tests**: `pytest` or `pytest tests/`  
+- **Run single test**: `pytest tests/test_specific_file.py::test_function_name`
+- **Run with coverage**: `pytest --cov=edusched --cov-report=term-missing`
+- **Lint**: `black . && isort . && flake8 .`
+- **Type check**: `mypy src/edusched`
+- **Format**: `black . && isort .`
 
-1. 在任何流程、任务、对话进行时，无论是询问、回复、或完成阶段性任务，皆必须调用 MCP mcp-feedback-enhanced。
-2. 每当收到用户反馈，若反馈内容非空，必须再次调用 MCP mcp-feedback-enhanced，并根据反馈内容调整行为。
-3. 仅当用户明确表示「结束」或「不再需要交互」时，才可停止调用 MCP mcp-feedback-enhanced，流程才算结束。
-4. 除非收到结束指令，否则所有步骤都必须重复调用 MCP mcp-feedback-enhanced。
-5. 完成任务前，必须使用 MCP mcp-feedback-enhanced 工具向用户询问反馈。
+### Frontend (Vue/TypeScript)
+- **Run tests**: `npm run test` or `vitest`
+- **Run single test**: `vitest path/to/test.spec.ts`
+- **Test coverage**: `npm run test:coverage`
+- **Lint**: `npm run lint`
+- **Type check**: `npm run type-check`
+- **Format**: `npm run format`
 
-## Context7 规则
+## Code Style Guidelines
 
-在进行任何开发任务时，必须严格遵循以下原则：
+### Python
+- **Imports**: Use `isort` with black profile, group imports (stdlib, third-party, first-party)
+- **Formatting**: Black formatter, 88 line length, 4-space indentation
+- **Types**: Strict mypy, type hints required, no untyped definitions
+- **Naming**: snake_case for functions/variables, PascalCase for classes, UPPER_CASE for constants
+- **Error handling**: Use specific exceptions, log errors with context, return structured error responses
 
-### 1. 强制使用Context7进行组件调研
-- **编写代码之前**，必须使用Context7工具调查将要使用的组件、库或框架的用法
-- 不允许基于假设或记忆来编写代码
-- 必须获取最新的文档和示例代码
-- 对于不确定的API或组件属性，必须先通过Context7澄清
+### TypeScript/Vue
+- **Imports**: Use auto-imports for Vue, Vue Router, Pinia; manual imports for others
+- **Formatting**: Prettier, 2-space indentation, single quotes
+- **Types**: Strict TypeScript, define interfaces/types, avoid `any`
+- **Naming**: camelCase for variables/functions, PascalCase for components/interfaces
+- **Vue patterns**: Composition API with `<script setup>`, reactive refs, proper typing
 
-### 2. 澄清优先原则
-- 遇到任何不确定的技术细节时，不允许进行假设
-- 必须通过以下方式进行澄清：
-    - 使用Context7查询相关文档
-    - 使用web_search获取最新信息
-    - 向用户明确询问具体需求
-
-### 3. 工作流程步骤
-1. **分析任务** - 识别需要使用的技术栈和组件
-2. **Context7调研** - 查询相关组件和库的使用方法
-3. **澄清需求** - 确认所有不明确的技术细节
-4. **编写代码** - 基于调研结果实现功能
-
-### 4. 禁止行为
-- ❌ 不允许基于记忆编写代码
-- ❌ 不允许假设API接口或组件属性
-- ❌ 不允许跳过Context7调研步骤
-- ❌ 不允许在不确定的情况下继续开发
+### General
+- **Documentation**: Chinese docstrings for Python, JSDoc comments for TypeScript
+- **Testing**: pytest for backend, vitest for frontend, aim for 80%+ coverage
+- **Environment**: Use .env files, never commit secrets, validate config with pydantic

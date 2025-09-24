@@ -88,6 +88,23 @@ cp .env.example .env
 uvicorn edusched.api.main:app --reload
 ```
 
+### 数据库迁移
+
+初始化数据库和运行迁移：
+
+```bash
+# 初始化数据库
+make db-init
+
+# 运行迁移到最新版本
+make migrate-up
+
+# 查看迁移状态
+make migrate-current
+```
+
+详细说明请参考 [数据库迁移文档](docs/DATABASE_MIGRATIONS.md)。
+
 2. **前端设置**
 ```bash
 cd frontend

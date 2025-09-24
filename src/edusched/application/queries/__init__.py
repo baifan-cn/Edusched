@@ -1,0 +1,1 @@
+"""Query classes for CQRS pattern."""

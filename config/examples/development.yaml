@@ -1,0 +1,60 @@
+# 开发环境配置示例 (YAML格式)
+
+# 应用配置
+app:
+  name: "Edusched"
+  version: "0.1.0"
+  debug: true
+  environment: "development"
+
+# 服务配置
+server:
+  host: "0.0.0.0"
+  port: 8000
+  workers: 1
+  reload: true
+
+# 数据库配置
+database:
+  host: "localhost"
+  port: 5432
+  name: "edusched_dev"
+  user: "edusched"
+  password: "edusched123"
+  pool_size: 5
+  max_overflow: 10
+  echo: true
+
+# Redis配置
+redis:
+  host: "localhost"
+  port: 6379
+  db: 0
+  pool_size: 5
+  timeout: 5
+
+# 安全配置
+security:
+  secret_key: "dev-secret-key-for-development-only"
+  algorithm: "HS256"
+  access_token_expire_minutes: 120
+  refresh_token_expire_days: 30
+  password_min_length: 8
+  allowed_origins:
+    - "http://localhost:3000"
+    - "http://localhost:8080"
+
+# 调度引擎配置
+scheduling:
+  worker_count: 1
+  max_iterations: 500
+  timeout_seconds: 600
+  parallel_threads: 1
+
+# 可观测性配置
+observability:
+  log_level: "DEBUG"
+  log_format: "pretty"
+  sentry_dsn: ""
+  prometheus_enabled: true
+  tracing_enabled: false
