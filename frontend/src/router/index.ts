@@ -61,6 +61,33 @@ const routes: RouteRecordRaw[] = [
           title: '调度引擎',
           icon: 'Cpu'
         }
+      },
+      {
+        path: '/subjects',
+        name: 'Subjects',
+        component: () => import('@/pages/Subjects/index.vue'),
+        meta: {
+          title: '学科管理',
+          icon: 'Collection'
+        }
+      },
+      {
+        path: '/rooms',
+        name: 'Rooms',
+        component: () => import('@/pages/Rooms/index.vue'),
+        meta: {
+          title: '教室管理',
+          icon: 'Office'
+        }
+      },
+      {
+        path: '/campuses',
+        name: 'Campuses',
+        component: () => import('@/pages/Campuses/index.vue'),
+        meta: {
+          title: '校区管理',
+          icon: 'Location'
+        }
       }
     ]
   },

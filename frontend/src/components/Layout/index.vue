@@ -3,7 +3,7 @@
     <!-- 侧边栏 -->
     <el-aside :width="isCollapse ? '64px' : '200px'" class="sidebar">
       <div class="logo">
-        <img src="@/assets/logo.png" alt="Edusched" v-if="!isCollapse" />
+        <img src="@/assets/logo.svg" alt="Edusched" v-if="!isCollapse" />
         <span v-if="!isCollapse">Edusched</span>
       </div>
       

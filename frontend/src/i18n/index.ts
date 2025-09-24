@@ -57,7 +57,7 @@ const messages = {
       employeeId: '工号',
       teacherName: '教师姓名',
       department: '部门',
-      title: '职称',
+      jobTitle: '职称',
       maxHoursPerDay: '每日最大课时',
       maxHoursPerWeek: '每周最大课时'
     },
