@@ -1,31 +1,282 @@
-# OS/editor
+# OS and Editor files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+
+# IDE
 .idea/
 .vscode/
+*.swp
+*.swo
+*~
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sublime-project
+*.sublime-workspace
+
+# Claude AI
+.claude/
 
 # Python
 __pycache__/
 *.py[cod]
+*$py.class
 *.egg-info/
 .eggs/
 .venv/
 venv/
-.python-version
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
-.coverage
-htmlcov/
-.cache/
+env/
+ENV/
+env.bak/
+venv.bak/
+.so
+.Python
+develop-eggs/
+downloads/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+.installed.cfg
+*.egg
+MANIFEST
+*.manifest
+*.spec
 
-# Node/Frontend
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+.nyc_output/
+
+# Translations
+*.mo
+*.pot
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask
+instance/
+.webassets-cache
+
+# Scrapy
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# PEP 582
+__pypackages__/
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath
+*.sage.py
+
+# Type checking
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+
+# Node.js and Frontend
 node_modules/
-dist/
-build/
 .pnpm-store/
 .eslintcache
 
-# Test/Tools
+# Environment variables
+.env
+.env.*
+!.env.example
+!.env.template
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+.env.staging
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Coverage
 coverage/
+*.lcov
+test-results/
 playwright-report/
 playwright/.cache/
+
+# Package managers
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build tools and outputs
+dist/
+build/
+.grunt
+bower_components/
+jspm_packages/
+web_modules/
+.tsbuildinfo
+.npm/
+.yarn-intelligence
+.cache/
+.parcel-cache/
+
+# Frameworks
+.next/
+.nuxt/
+out/
+.storybook-out/
+
+# Temporary folders
+tmp/
+temp/
+
+# Database files
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+*.dump
+*.backup
+
+# Certificates and security files
+*.key
+*.p12
+*.crt
+*.pfx
+*.crl
+*.p7b
+*.p7c
+*.csr
+*.der
+*.cer
+*.pkcs12
+
+# SSH and cryptography
+id_rsa*
+id_dsa*
+*.ppk
+*.pub
+
+# Configuration with sensitive data
+config/local.*
+config/production.*
+config/development.*
+config/test.*
+secrets.yml
+vault.yml
+
+# Logs
+*.log
+logs/
+log/
+
+# Temporary and backup files
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
+*.backup
+*.orig
+
+# Cache directories
+.pytest_cache/
+.ruff_cache/
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+docker-compose.local.yml
+
+# Kubernetes
+k8s/
+.k8s/
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+terraform.tfvars
+terraform.tfvars.json
+
+# Ansible
+*.retry
+
+# Deployment packages
+*.zip
+*.tar.gz
+*.war
+*.ear
+
+# Compiled binaries
+*.exe
+*.dll
+*.dylib
+*.lib
+*.a
+*.o
+*.obj
+
+# System files
+*.pid
+*.seed
+*.pid.lock
